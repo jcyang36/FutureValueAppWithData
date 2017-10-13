@@ -29,32 +29,10 @@ public class Main
             double futureValue = calculateFutureValue(
                     monthlyInvestment, monthlyInterestRate, months);
 
-            // get the currency and percent formatters
-            NumberFormat currency = NumberFormat.getCurrencyInstance();
-            NumberFormat percent = NumberFormat.getPercentInstance();
-            percent.setMinimumFractionDigits(1);
 
-            // format the result as a single string
-            String results =
-                    "Monthly investment:\t"
-                            + currency.format(monthlyInvestment) + "\n"
-                            + "Yearly interest rate:\t"
-                            + percent.format(interestRate/100) + "\n"
-                            + "Number of years:\t"
-                            +  years + "\n"
-                            + "Future value:\t\t"
-                            + currency.format(futureValue) + "\n";
+        printFormattedResults(monthlyInvestment, interestRate, years, futureValue);
+        choice=askToContinue(sc);
 
-            // print the results
-            System.out.println();
-            System.out.println("FORMATTED RESULTS");
-            System.out.println(results);
-
-            // see if the user wants to continue
-            System.out.print("Continue? (y/n): ");
-            choice = sc.next();
-            sc.nextLine();  // discard any other data entered on the line
-            System.out.println();
         }
     }
 
@@ -151,5 +129,36 @@ public class Main
                             (1 + monthlyInterestRate);
         }
         return futureValue;
+    }
+    private static void printFormattedResults(double monthlyInvestment, double interestRate, int years, double futureValue){
+        // get the currency and percent formatters
+        NumberFormat currency = NumberFormat.getCurrencyInstance();
+        NumberFormat percent = NumberFormat.getPercentInstance();
+        percent.setMinimumFractionDigits(1);
+
+        // format the result as a single string
+        String results =
+                "Monthly investment:\t"
+                        + currency.format(monthlyInvestment) + "\n"
+                        + "Yearly interest rate:\t"
+                        + percent.format(interestRate/100) + "\n"
+                        + "Number of years:\t"
+                        +  years + "\n"
+                        + "Future value:\t\t"
+                        + currency.format(futureValue) + "\n";
+
+        // print the results
+        System.out.println();
+        System.out.println("FORMATTED RESULTS");
+        System.out.println(results);
+    }
+
+    public static String askToContinue(Scanner sc){
+        // see if the user wants to continue
+        System.out.print("Continue? (y/n): ");
+        String choice = sc.next();
+        sc.nextLine();  // discard any other data entered on the line
+        System.out.println();
+        return choice;
     }
 }
